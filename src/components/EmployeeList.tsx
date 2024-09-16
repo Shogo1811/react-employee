@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchEmployees, deleteEmployee, Employee } from '../services/api';
 import { useNavigate } from 'react-router-dom';
-import './EmployeeList.css'; // 外部CSSファイルをインポート
+import './EmployeeList.css';
 
 const EmployeeList: React.FC = () => {
   const [employees, setEmployees] = useState<Employee[]>([]);
@@ -16,13 +16,22 @@ const EmployeeList: React.FC = () => {
     setEmployees(result.data);
   };
 
+  //TODO 削除時React側でエラーが表示される、要修正
   const handleDelete = async (id: number) => {
-    await deleteEmployee(id);
-    loadEmployees();
+    const confirmed = window.confirm("削除してもよろしいでしょうか？");
+    if (confirmed) {
+      await deleteEmployee(id);
+      loadEmployees();
+      navigate('/');
+    }
   };
 
   const handleAddEmployee = () => {
     navigate('/add-employee');
+  };
+
+  const handleEdit = (id: number) => {
+    navigate(`/edit-employee/${id}`);
   };
 
   return (
@@ -57,9 +66,16 @@ const EmployeeList: React.FC = () => {
                 <img src={employee.image} alt={employee.name} className="employee-image" />
               </td>
               <td>
-                <button className="delete-button" onClick={() => handleDelete(employee.id!)}>
-                  Delete
-                </button>
+                {employee.id !== undefined && (
+                  <div className="employee-actions">
+                    <button className="edit-button" onClick={() => handleEdit(employee.id!)}>
+                      Edit
+                    </button>
+                    <button className="delete-button" onClick={() => handleDelete(employee.id!)}>
+                      Delete
+                    </button>
+                  </div>
+                )}
               </td>
             </tr>
           ))}

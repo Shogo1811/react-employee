@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { createEmployee, Employee } from '../services/api';
 import './AddEmployee.css';
 
@@ -13,6 +14,8 @@ const AddEmployee: React.FC = () => {
     image: '',
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setEmployee({ ...employee, [e.target.name]: e.target.value });
   };
@@ -21,6 +24,7 @@ const AddEmployee: React.FC = () => {
     e.preventDefault();
     await createEmployee(employee);
     alert('Employee added!');
+    navigate('/');
   };
 
   return (
