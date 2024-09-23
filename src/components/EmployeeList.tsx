@@ -20,9 +20,13 @@ const EmployeeList: React.FC = () => {
   const handleDelete = async (id: number) => {
     const confirmed = window.confirm("削除してもよろしいでしょうか？");
     if (confirmed) {
-      await deleteEmployee(id);
-      loadEmployees();
-      navigate('/');
+      try {
+        await deleteEmployee(id);
+        await loadEmployees();
+        navigate('/');
+      } catch (error) {
+        console.error('削除中にエラーが発生しました:', error);
+      }
     }
   };
 

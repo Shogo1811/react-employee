@@ -11,6 +11,8 @@ export interface Employee {
   department: string;
   others: string;
   image: string;
+  email: string;
+  password: string;
 }
 
 export const fetchEmployees = () => axios.get<Employee[]>(`${API_URL}`);

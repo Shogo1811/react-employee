@@ -12,6 +12,8 @@ const AddEmployee: React.FC = () => {
     department: '',
     others: '',
     image: '',
+    email: '',
+    password: '',
   });
 
   const navigate = useNavigate();
@@ -49,6 +51,14 @@ const AddEmployee: React.FC = () => {
       <div className="form-group">
         <label>Department</label>
         <input type="text" name="department" placeholder="Department" onChange={handleChange} />
+      </div>
+      <div className="form-group">
+        <label>Email</label>
+        <input type="text" name="email" placeholder="Department" onChange={handleChange} />
+      </div>
+      <div className="form-group">
+        <label>Password</label>
+        <input type="text" name="password" placeholder="Department" onChange={handleChange} />
       </div>
       <div className="form-group">
         <label>Others</label>
